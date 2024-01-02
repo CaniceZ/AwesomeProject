@@ -14,6 +14,7 @@ function MyTabs() {
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
         headerShown: false,
+        tabBarHideOnKeyboard: true,
       })}>
       <Tab.Screen
         name="Home"
