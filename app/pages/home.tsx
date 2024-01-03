@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import {View, Text, Button, TextInput, StyleSheet} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailsScreen from './details';
 import LoginScreen from './login';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useAppSelector} from '../hooks/useStore';
 const HomeStack = createNativeStackNavigator();
 const styles = StyleSheet.create({
   input: {
@@ -33,15 +33,30 @@ function HomeScreen({navigation}) {
     </View>
   );
 }
-
-function HomeStackScreen(): React.JSX.Element {
+function TmpScreen({navigation}) {
+  const userInfo = useAppSelector(state => state.user.userInfo);
+  useLayoutEffect(() => {
+    if(!userInfo.accout){
+      navigation.replace('Login');
+    }else{
+      navigation.replace('Home2');
+    }
+   
+  }, [userInfo.accout]);
   return (
-    <HomeStack.Navigator initialRouteName="Login">
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>中转页!</Text>
+    </View>
+  );
+}
+function HomeStackScreen({navigation}): React.JSX.Element {
+  return (
+    <HomeStack.Navigator initialRouteName="TmpScreen">
       <HomeStack.Screen
         name="Home2"
         component={HomeScreen}
         options={{
-          title: '外卖',
+          title: '主页',
         }}
       />
       <HomeStack.Screen
@@ -55,6 +70,13 @@ function HomeStackScreen(): React.JSX.Element {
         }}
         name="Login"
         component={LoginScreen}
+      />
+      <HomeStack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="TmpScreen"
+        component={TmpScreen}
       />
     </HomeStack.Navigator>
   );

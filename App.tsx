@@ -1,21 +1,40 @@
 import * as React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Provider} from 'react-redux';
+import store from './app/store/index';
 import HomeScreen from './app/pages/home';
 import AboutScreen from './app/pages/about-me';
+import { useAppSelector } from './app/hooks/useStore';
 
 const Tab = createBottomTabNavigator();
-
+const whileList = ['Home2', undefined]; // 不隐藏底部菜单的路由
 function MyTabs() {
+  const userInfo = useAppSelector(state => state.user.userInfo);
+  // const tabRef = React.useRef(null)
+  // React.useEffect(()=>{
+  //   if([userInfo.accout]){
+  //   }
+  // },[userInfo.accout])
   return (
     <Tab.Navigator
-      screenOptions={() => ({
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'gray',
-        headerShown: false,
-        tabBarHideOnKeyboard: true,
-      })}>
+      initialRouteName="Login"
+      screenOptions={({route}) => {
+        const routesName = getFocusedRouteNameFromRoute(route);
+        return {
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+          headerShown: false,
+          tabBarHideOnKeyboard: true,
+          tabBarStyle: {
+            display: whileList.includes(routesName) ? 'block' : 'none',
+          },
+        };
+      }}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
@@ -44,8 +63,10 @@ function MyTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MyTabs />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <MyTabs/>
+      </NavigationContainer>
+    </Provider>
   );
 }
