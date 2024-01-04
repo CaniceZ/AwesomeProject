@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,8 @@ import {
   Alert,
   ImageBackground,
 } from 'react-native';
-import store from '../store';
-import {setUserInfo} from '../store/user';
+import store from '../../store';
+import {setUserInfo} from '../../store/user';
 const styles = StyleSheet.create({
   input: {
     height: 40,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-const imageUrl = require('../assets/login_bg.jpeg');
+const imageUrl = require('../../assets/login_bg.jpeg');
 function Login({navigation, route}): React.JSX.Element {
   // const routesName = getFocusedRouteNameFromRoute(route);
   // useLayoutEffect(() => {
@@ -56,7 +56,7 @@ function Login({navigation, route}): React.JSX.Element {
     Alert.alert('登录成功', '', [
       {
         text: '确定',
-        onPress: () => navigation.replace('Home2'),
+        onPress: () => navigation.replace('HomeIndex'),
       },
     ]);
     // () => navigation.replace('Home2')

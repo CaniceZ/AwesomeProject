@@ -8,11 +8,12 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Provider} from 'react-redux';
 import store from './app/store/index';
 import HomeScreen from './app/pages/home';
+import OrderScreen from './app/pages/order';
 import AboutScreen from './app/pages/about-me';
-import { useAppSelector } from './app/hooks/useStore';
+import {useAppSelector} from './app/hooks/useStore';
 
 const Tab = createBottomTabNavigator();
-const whileList = ['Home2', undefined]; // 不隐藏底部菜单的路由
+const whileList = ['HomeIndex', undefined, 'OrderIndex']; // 不隐藏底部菜单的路由
 function MyTabs() {
   const userInfo = useAppSelector(state => state.user.userInfo);
   // const tabRef = React.useRef(null)
@@ -47,6 +48,17 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
+        name="Order"
+        component={OrderScreen}
+        options={{
+          tabBarLabel: '订单',
+          title: '订单',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="wallet" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="About"
         component={AboutScreen}
         options={{
@@ -65,7 +77,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <MyTabs/>
+        <MyTabs />
       </NavigationContainer>
     </Provider>
   );
