@@ -5,7 +5,7 @@ function AboutMe(): React.JSX.Element {
   const userInfo = useAppSelector(state => state.user.userInfo);
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>AboutMe!</Text>
+      <Text>测试react-redux-toolkit</Text>
       <Text>当前账号：{userInfo.accout}</Text>
     </View>
   );
