@@ -77,3 +77,11 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### 安卓打包
+```bash
+# 进入安卓目录
+cd .\andriod\
+# 打包 （首次打包时间会很长）
+./gradlew assembleRelease
+# 打包成功后，apk产物位置：\android\app\build\outputs\apk\release\app-release.apk
+```
